@@ -1,10 +1,12 @@
 const express = require('express');
 const Users = require('./userDb.js');
 const Posts = require('../Posts/postDb.js');
+const middleware = require('../middleware');
 
 const router = express.Router();
 
 router.use(express.json());
+router.use(middleware.makeNameUpperCase);
 
 //====== ENDPOINTS ======//
 router.get('/', (req, res) => {
@@ -75,6 +77,7 @@ router.delete('/:id', (req, res) => {
         })
     })
   }
+
   removeUserPosts(id)
     .then(() => {
       // After removing user's posts
